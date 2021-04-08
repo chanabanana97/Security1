@@ -9,6 +9,9 @@ public class Encryption {
         System.arraycopy(key, 0, key1, 0, key1.length);
         System.arraycopy(key, key1.length, key2, 0, key2.length);
 
+//        System.out.println(Arrays.toString(key1));
+//        System.out.println(Arrays.toString(message));
+
         String[][] key1mat = Processing.block2mat(key1);
         String[][] key2mat = Processing.block2mat(key2);
         int numOfBlocks = message.length / 16;
@@ -47,7 +50,7 @@ public class Encryption {
             for (int j = 0; j < message[0].length; j++) {
                 m = Integer.parseInt(message[i][j], 16);
                 k = Integer.parseInt(key[i][j], 16);
-                xor[i][j] = String.format("%06x", m ^ k);
+                xor[i][j] = String.format("%02x", m ^ k);
             }
         }
         return xor;

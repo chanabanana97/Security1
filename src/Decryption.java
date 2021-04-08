@@ -46,7 +46,7 @@ public class Decryption {
             for (int j = 0; j < message[0].length; j++) {
                 m = Integer.parseInt(message[i][j], 16);
                 k = Integer.parseInt(key[i][j], 16);
-                xor[i][j] = String.format("%06x", m ^ k);
+                xor[i][j] = String.format("%02x", m ^ k);
             }
         }
         return xor;

@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
 
@@ -11,8 +12,11 @@ public class Processing {
     public static void writeToFile(String[][] cypher, String fileName) {
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
-            for (String[] row: cypher ) {
-                fos.write(hexStringToByteArray(Arrays.toString(row)));
+            for (int i = 0; i < cypher.length; i++) {
+                for (int j = 0; j < cypher[0].length ; j++) {
+                    fos.write(hexStringToByteArray(cypher[i][j]));
+
+                }
             }
 
         } catch (IOException e) {
@@ -35,11 +39,14 @@ public class Processing {
         }
         char[] messageHex = byteArrayToHex(message).toCharArray(); // message as hex in char array
 //        System.out.println(messageHex);
+//        System.out.println(messageHex.length);
 
         String[] hexArray = new String[messageHex.length / 2];
         for (int i = 0; i < hexArray.length; i++) {
             hexArray[i] = messageHex[i * 2] + "" + messageHex[i * 2 + 1];
         }
+//        System.out.println(Arrays.toString(hexArray));
+//        System.out.println(hexArray.length);
 //        for (int i = 0; i < 4 ; i++) {
 //            for (int j = 0; j < 4 ; j++) {
 //                System.out.print(matrix[i][j]);
@@ -58,7 +65,7 @@ public class Processing {
         int k = 0;
         for (int i = 0; i < 4 ; i++) {
             for (int j = 0; j < 4 ; j++) {
-                matrix[j][i] = hexArray[k];
+                matrix[i][j] = hexArray[k];
                 k++;
             }
         }

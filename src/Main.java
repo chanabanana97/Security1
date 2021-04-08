@@ -20,8 +20,19 @@ public class Main {
         Encryption.encrypt(message, key);
 
         Decryption.decrypt(cypher, key);
-        System.out.println(Arrays.toString(Files.readAllBytes(Paths.get("1.txt"))));
-        System.out.println(Arrays.toString(Files.readAllBytes(Paths.get("C:\\Users\\Chana\\Desktop\\Security1\\src\\cipher_short"))));
+        byte[] f = Files.readAllBytes(Paths.get("2.txt"));
+        for (byte b:f)
+        {
+            System.out.printf("%02X", b);
+        }
+        System.out.println();
+        byte[] c = Files.readAllBytes(Paths.get("C:\\Users\\Chana\\Desktop\\Security1\\src\\message_short"));
+        for (byte b:c)
+        {
+            System.out.printf("%02X", b);
+        }
+
+//        System.out.println(Arrays.toString(Files.readAllBytes(Paths.get("C:\\Users\\Chana\\Desktop\\Security1\\src\\cipher_short"))));
 //        System.out.println(readFile("2.txt", StandardCharsets.UTF_16));
 
 
