@@ -2,22 +2,14 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
-
 
 public class Processing {
 
 
-    public static void writeToFile(String[][] cypher, String fileName) {
+    public static void writeToFile(byte[] b, String fileName) {
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
-            for (int i = 0; i < cypher.length; i++) {
-                for (int j = 0; j < cypher[0].length ; j++) {
-                    fos.write(hexStringToByteArray(cypher[i][j]));
-
-                }
-            }
+            fos.write(b);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,27 +29,17 @@ public class Processing {
                 e.printStackTrace();
             }
         }
-        char[] messageHex = byteArrayToHex(message).toCharArray(); // message as hex in char array
-//        System.out.println(messageHex);
-//        System.out.println(messageHex.length);
+        String messageHex = byteArrayToHex(message);
+        return stringToHex(messageHex);
+    }
 
-        String[] hexArray = new String[messageHex.length / 2];
+    public static String[] stringToHex(String messageHex){
+
+        String[] hexArray = new String[messageHex.length() / 2];
         for (int i = 0; i < hexArray.length; i++) {
-            hexArray[i] = messageHex[i * 2] + "" + messageHex[i * 2 + 1];
+            hexArray[i] = messageHex.charAt(i * 2) + "" + messageHex.charAt(i * 2 + 1);
         }
-//        System.out.println(Arrays.toString(hexArray));
-//        System.out.println(hexArray.length);
-//        for (int i = 0; i < 4 ; i++) {
-//            for (int j = 0; j < 4 ; j++) {
-//                System.out.print(matrix[i][j]);
-//
-//            }
-//            System.out.println();
-//        }
-//
-//        System.out.println("---------------");
-
-        return hexArray;
+    return hexArray;
     }
 
     public static String[][] block2mat(String[] hexArray){
@@ -73,7 +55,6 @@ public class Processing {
     }
 
 
-
     // TODO fix runtime maybe?
     public String byteArrayToHex(byte[] a) {
         StringBuilder sb = new StringBuilder(a.length * 2);
@@ -82,13 +63,19 @@ public class Processing {
         return sb.toString();
     }
 
-    public static byte[] hexStringToByteArray(String s) {
-        int len = s.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                    + Character.digit(s.charAt(i+1), 16));
-        }
+//    public static byte[] hexMatrixToByteArr(String[][] data){
+//        int k=0;
+//        byte[] b = new byte[data.length * data[0].length];
+//        for (int i = 0; i <data.length ; i++) {
+//            for (int j = 0; j <data[0].length ; j++) {
+//                b[k] = hexStringToByte(data[i][j]);
+//            }
+//        }
+//        return b;
+//    }
+    public static byte hexStringToByte(String s) {
+        byte data = (byte) ((Character.digit(s.charAt(0), 16) << 4)
+                    + Character.digit(s.charAt(1), 16));
         return data;
     }
 
